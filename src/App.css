@@ -1,38 +1,281 @@
-.App {
-  text-align: center;
+:root {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #0c1b33;
+  background-color: #f4f6fb;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, #eef3ff, #f8f9fc 60%);
   min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 16px 72px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 3vw, 3rem);
+  margin: 0.4rem 0 1rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: #4f6bed;
+  margin: 0;
+}
+
+.lede {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin: 0 auto;
+  max-width: 620px;
+}
+
+.grid {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.card-checker,
+.integration {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(42, 61, 92, 0.1);
+}
+
+.card-checker form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 8px;
+}
+
+.card-checker label {
+  font-weight: 600;
+}
+
+.card-checker input {
+  border-radius: 12px;
+  border: 1px solid #cfd8ef;
+  padding: 14px 16px;
+  font-size: 1rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.card-checker input:focus {
+  outline: none;
+  border-color: #4f6bed;
+  box-shadow: 0 0 0 3px rgba(79, 107, 237, 0.2);
+}
+
+.card-checker button {
+  margin-top: 4px;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-size: 1rem;
+  font-weight: 600;
   color: white;
+  background: linear-gradient(135deg, #384cff, #6f9eff);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.card-checker button:disabled {
+  opacity: 0.6;
+  cursor: progress;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.card-checker button:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(79, 107, 237, 0.3);
+}
+
+.status-line {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #f2f5ff;
+  color: #1a2750;
+}
+
+.status-line p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge--info {
+  background: rgba(79, 107, 237, 0.15);
+  color: #2e3eb5;
+}
+
+.status-badge--success {
+  background: rgba(53, 211, 153, 0.18);
+  color: #037f4c;
+}
+
+.status-badge--error {
+  background: rgba(255, 132, 132, 0.2);
+  color: #c23838;
+}
+
+.status-badge--warning {
+  background: rgba(255, 196, 112, 0.25);
+  color: #a45b00;
+}
+
+.result-panel {
+  margin-top: 28px;
+  border: 1px solid #eff2fb;
+  border-radius: 24px;
+  padding: 24px;
+  background: #fdfdff;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.result-header h3 {
+  margin: 4px 0 0;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0 8px;
+}
+
+.result-grid dt {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7b88b3;
+  margin-bottom: 4px;
+}
+
+.result-grid dd {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #142044;
+}
+
+.result-grid .balance {
+  font-size: 1.6rem;
+  color: #0f7b63;
+}
+
+.transaction-history h3 {
+  margin-top: 8px;
+}
+
+.transaction-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transaction-history li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf0fb;
+}
+
+.transaction-history li:last-child {
+  border-bottom: none;
+}
+
+.transaction-history strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.transaction-history .muted {
+  font-size: 0.8rem;
+}
+
+.debit {
+  color: #c23838;
+  font-weight: 600;
+}
+
+.credit {
+  color: #0f7b63;
+  font-weight: 600;
+}
+
+.integration h2 {
+  margin-top: 0;
+}
+
+.integration ol {
+  padding-left: 18px;
+  color: #4a5568;
+}
+
+.integration pre {
+  background: #0c1126;
+  color: #b0c3ff;
+  padding: 16px;
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+.integration code {
+  font-family: 'JetBrains Mono', SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.9rem;
+}
+
+.muted {
+  color: #6f7a99;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .card-checker,
+  .integration {
+    padding: 24px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .status-line {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
