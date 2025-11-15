@@ -1,38 +1,211 @@
-.App {
+:root {
+  --border: #e2e8f0;
+  --bg-muted: #f8fafc;
+  --bg-panel: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --brand: #2563eb;
+  --brand-dark: #1d4ed8;
+  --success: #059669;
+  --error: #dc2626;
+  --warning: #d97706;
+}
+
+body {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.hero {
   text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.hero .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--brand);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.75rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.hero .subtitle {
+  color: var(--text-secondary);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+}
+
+.panel h2,
+.panel h3 {
+  margin-top: 0;
+}
+
+.panel-intro {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.info-panel ol,
+.info-panel ul {
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.info-panel li + li {
+  margin-top: 0.5rem;
+}
+
+.checker__form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 1.25rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  gap: 0.35rem;
+}
+
+input {
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+button {
+  border-radius: 999px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  cursor: pointer;
+}
+
+button.primary {
+  background: linear-gradient(90deg, var(--brand), var(--brand-dark));
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+button.ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.alert {
+  border-radius: 0.75rem;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+}
+
+.alert--success {
+  background: rgba(5, 150, 105, 0.08);
+  color: var(--success);
+  border-color: rgba(5, 150, 105, 0.3);
+}
+
+.alert--error {
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--error);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+.alert--loading {
+  background: rgba(217, 119, 6, 0.08);
+  color: var(--warning);
+  border-color: rgba(217, 119, 6, 0.3);
+}
+
+.result-card {
+  margin-top: 1.75rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.15), transparent),
+    #fff;
+}
+
+.result-label {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem 0;
+}
+
+.result-value {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.result-card dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.result-card dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.result-card dd {
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .content-grid {
+    grid-template-columns: 1fr;
   }
 }

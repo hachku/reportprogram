@@ -1,90 +1,66 @@
-/* src/App.js */
-import React, { useEffect, useState } from 'react'
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
-import { listTodos } from './graphql/queries'
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import React from 'react';
+import GiftCardBalanceChecker from './components/GiftCardBalanceChecker';
+import './App.css';
 
-import awsExports from "./aws-exports";
-Amplify.configure(awsExports);
-
-const initialState = { name: '', description: '' }
-
-const App = () => {
-  const [formState, setFormState] = useState(initialState)
-  const [todos, setTodos] = useState([])
-
-  useEffect(() => {
-    fetchTodos()
-  }, [])
-
-  function setInput(key, value) {
-    setFormState({ ...formState, [key]: value })
-  }
-
-  async function fetchTodos() {
-    try {
-      const todoData = await API.graphql(graphqlOperation(listTodos))
-      const todos = todoData.data.listTodos.items
-      setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
-  }
-
-  async function addTodo() {
-    try {
-      if (!formState.name || !formState.description) return
-      const todo = { ...formState }
-      setTodos([...todos, todo])
-      setFormState(initialState)
-      await API.graphql(graphqlOperation(createTodo, {input: todo}))
-    } catch (err) {
-      console.log('error creating todo:', err)
-    }
-  }
-
+function App() {
   return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <div style={styles.container}>
-          <h1>Hello {user.username}</h1>
-          <button style={styles.button} onClick={signOut}>Sign out</button>
-          <br />
-          <h2>Amplify Todos</h2>
-          <input
-            onChange={event => setInput('name', event.target.value)}
-            style={styles.input}
-            value={formState.name}
-            placeholder="Name"
-          />
-          <input
-            onChange={event => setInput('description', event.target.value)}
-            style={styles.input}
-            value={formState.description}
-            placeholder="Description"
-          />
-          <button style={styles.button} onClick={addTodo}>Create Todo</button>
-          {
-            todos.map((todo, index) => (
-              <div key={todo.id ? todo.id : index} style={styles.todo}>
-                <p style={styles.todoName}>{todo.name}</p>
-                <p style={styles.todoDescription}>{todo.description}</p>
-              </div>
-            ))
-          }
-        </div>
-      )}
-    </Authenticator>
+    <div className="app-shell">
+      <header className="hero">
+        <p className="eyebrow">Shopify-ready widget</p>
+        <h1>Gift Card Balance Checker</h1>
+        <p className="subtitle">
+          Give customers a frictionless way to verify the value of their gift cards before
+          they start a checkout. Drop this React widget anywhere on your Shopify storefront
+          or landing page and point it to your secure balance endpoint.
+        </p>
+      </header>
+
+      <main className="content-grid">
+        <section className="panel main-panel">
+          <h2>Customer-facing experience</h2>
+          <p className="panel-intro">
+            This form validates gift cards with your Shopify store. It includes space for a
+            card number, optional PIN, and an email address so you can route lookups through
+            your preferred anti-fraud flow.
+          </p>
+          <GiftCardBalanceChecker />
+        </section>
+
+        <aside className="panel info-panel">
+          <div>
+            <h3>How to hook it up</h3>
+            <ol>
+              <li>
+                Deploy a lightweight API route that proxies requests to the
+                <strong> Shopify Admin GraphQL API</strong> and invokes the
+                <code>giftCard</code> query.
+              </li>
+              <li>
+                Store your Admin API token on the server only. The widget simply calls the
+                proxy endpoint defined in <code>REACT_APP_GIFT_CARD_BALANCE_ENDPOINT</code>.
+              </li>
+              <li>
+                Customize the response payload to match the <code>{'{ balance, currency }'}</code>
+                shape used in this app.
+              </li>
+            </ol>
+          </div>
+
+          <div>
+            <h3>Embed instructions</h3>
+            <ul>
+              <li>Add the built bundle to any Shopify theme section.</li>
+              <li>
+                Wrap the widget in a Shopify section block or a simple div with your brand
+                styles.
+              </li>
+              <li>Localize the copy by editing <code>src/components/GiftCardBalanceChecker.jsx</code>.</li>
+            </ul>
+          </div>
+        </aside>
+      </main>
+    </div>
   );
 }
 
-const styles = {
-  container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
-  todo: {  marginBottom: 15 },
-  input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18 },
-  todoName: { fontSize: 20, fontWeight: 'bold' },
-  todoDescription: { marginBottom: 0 },
-  button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
-}
-
-export default App
+export default App;
